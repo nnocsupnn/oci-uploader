@@ -30,7 +30,6 @@ class Uploader implements PluginInterface
 
     public function __construct() 
     {
-        $this->loadConfiguration();
         $this->validateConfiguration();
     }
 
@@ -38,6 +37,7 @@ class Uploader implements PluginInterface
     {
         // Your plugin logic here
         $io->write("<info>Uploader plugin activated</info>");
+        $this->loadConfiguration();
     }
 
     // Optionally implement deactivate and uninstall if needed
