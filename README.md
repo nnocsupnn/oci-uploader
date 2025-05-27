@@ -1,8 +1,11 @@
-# OCI Uploader
+# OCI Uploader 🚀
 
 A PHP library for uploading files to Oracle Cloud Infrastructure (OCI) Object Storage.
 
-### Required Environment variables
+
+---
+
+### ❗Required Environment variables
 
 ```php
 OCI_REGION=us-phoenix-1
@@ -13,25 +16,33 @@ OCI_NAMESPACE=your-namespace
 OCI_BUCKET_NAME=your-bucket
 OCI_KEY_FILE=path/to/private_key.pem
 ```
-
-### Installation
+---
+### ℹ️ Installation [🔗 Packagist](https://packagist.org/packages/maxicare/oci-uploader)
 ```bash
-composer require maxicare/oci-uploader:1.0 -W
+composer require maxicare/oci-uploader
 ```
 
+---
 
-### Usage
+
+### 🚀 Usage
 
 ```php
-$ociUploader = new Uploader();
+<?php
 
-$ociUploader->testConnection(); # Test Connection / Configuration
+namespace MyLaravelApp;
 
-$ociUploader->upload(file_get_contents(base_path() . "/.dummy/dog.png"), "dog.png"); # Upload using contents to OCI
+use Maxicare\Uploader;
 
-$ociUploader->uploadFile(base_path() . "/.dummy/dog.png") # Upload object to OCI
+public function testUpload() {
+    $ociUploader = new Uploader();
 
-$ociUploader->download("dog.png"); # Download
+    $ociUploader->testConnection(); # Test Connection / Configuration
 
-$ociUploader->delete("dog.png"); # Delete
+    $ociUploader->upload(file_get_contents(base_path() . "/.dummy/dog.png"), "dog.png"); # Upload using contents to OCI
+    $ociUploader->uploadFile(base_path() . "/.dummy/dog.png") # Upload object to OCI
+    $ociUploader->download("dog.png"); # Download
+    $ociUploader->delete("dog.png"); # Delete
+}
+
 ```
