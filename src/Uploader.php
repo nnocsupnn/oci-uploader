@@ -35,7 +35,7 @@ class Uploader implements PluginInterface
     public function activate(Composer $composer, IOInterface $io)
     {
         // Your plugin logic here
-        $io->write("<info>✅ Uploader plugin activated</info>");
+        $io->write("<info>✅ Uploader plugin activated ::: DALE MO BOY! </info>");
     }
 
     // Optionally implement deactivate and uninstall if needed
