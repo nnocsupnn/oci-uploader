@@ -2,10 +2,6 @@
 
 namespace Maxicare;
 
-use Composer\Composer;
-use Composer\Plugin\PluginInterface;
-use Composer\IO\IOInterface;
-
 use Exception;
 use InvalidArgumentException;
 
@@ -15,7 +11,7 @@ use InvalidArgumentException;
  * @author Nino Casupanan
  * @description C4C Uploader
  */
-class Uploader implements PluginInterface
+class Uploader
 {
     private array $config;
     private array $requiredEnvVars = [
@@ -30,17 +26,9 @@ class Uploader implements PluginInterface
 
     public function __construct() 
     {
+        $this->loadConfiguration();
+        $this->validateConfiguration();
     }
-
-    public function activate(Composer $composer, IOInterface $io)
-    {
-        // Your plugin logic here
-        $io->write("<info>✅ Uploader plugin activated ::: DALE MO BOY! </info>");
-    }
-
-    // Optionally implement deactivate and uninstall if needed
-    public function deactivate(Composer $composer, IOInterface $io) {}
-    public function uninstall(Composer $composer, IOInterface $io) {}
 
     /**
      * Load environment configuration
@@ -66,7 +54,7 @@ class Uploader implements PluginInterface
      */
     private function validateConfiguration(): void
     {
-        $this->loadConfiguration();
+        // Check if Laravel's base_path() function exists
         if (!function_exists('base_path')) {
             throw new Exception("Laravel base_path() function not available");
         }
@@ -100,7 +88,6 @@ class Uploader implements PluginInterface
      */
     private function getPrivateKeyPath(): string
     {
-        $this->loadConfiguration();
         $keyFile = $this->config['OCI_KEY_FILE'];
         
         // If absolute path, use as-is
@@ -162,7 +149,6 @@ class Uploader implements PluginInterface
      */
     private function getKeyId(): string
     {
-        $this->loadConfiguration();
         return $this->config['OCI_TENANCY'] . '/' . 
                $this->config['OCI_USER'] . '/' . 
                $this->config['OCI_FINGERPRINT'];
@@ -173,7 +159,6 @@ class Uploader implements PluginInterface
      */
     public function upload(string $content, string $filename): array
     {
-        $this->loadConfiguration();
         if (empty($content)) {
             throw new InvalidArgumentException("Content cannot be empty");
         }
@@ -231,7 +216,6 @@ class Uploader implements PluginInterface
      */
     public function uploadFile(string $filePath, string $objectName = null): array
     {
-        $this->loadConfiguration();
         if (!file_exists($filePath)) {
             throw new InvalidArgumentException("File not found: {$filePath}");
         }
@@ -254,7 +238,6 @@ class Uploader implements PluginInterface
      */
     public function download(string $filename): array
     {
-        $this->loadConfiguration();
         if (empty($filename)) {
             throw new InvalidArgumentException("Filename cannot be empty");
         }
@@ -287,7 +270,6 @@ class Uploader implements PluginInterface
      */
     public function delete(string $filename): array
     {
-        $this->loadConfiguration();
         if (empty($filename)) {
             throw new InvalidArgumentException("Filename cannot be empty");
         }
@@ -320,7 +302,6 @@ class Uploader implements PluginInterface
      */
     public function listObjects(string $prefix = '', int $limit = 1000): array
     {
-        $this->loadConfiguration();
         $namespace = $this->config['OCI_NAMESPACE'];
         $bucket = $this->config['OCI_BUCKET_NAME'];
         $region = $this->config['OCI_REGION'];
@@ -453,7 +434,6 @@ class Uploader implements PluginInterface
      */
     public function getConfig(): array
     {
-        $this->loadConfiguration();
         // Return config without sensitive data
         $safeConfig = $this->config;
         unset($safeConfig['OCI_KEY_FILE']);
