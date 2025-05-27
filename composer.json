@@ -12,7 +12,8 @@
     "require": {
         "php": "^8.0",
         "ext-curl": "*",
-        "ext-openssl": "*"
+        "ext-openssl": "*",
+        "composer-plugin-api": "^2.0"
     },
     "config": {
         "sort-packages": true,
