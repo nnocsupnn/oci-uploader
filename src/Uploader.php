@@ -68,7 +68,6 @@ class Uploader implements PluginInterface
      */
     private function validateConfiguration(): void
     {
-        // Check if Laravel's base_path() function exists
         if (!function_exists('base_path')) {
             throw new Exception("Laravel base_path() function not available");
         }
