@@ -1,7 +1,7 @@
 {
     "name": "maxicare/oci-uploader",
     "type": "composer-plugin",
-    "version": "1.0",
+    "version": "1.0.1",
     "license": "MIT",
     "keywords": ["oci", "oracle", "cloud", "maxicare", "storage", "upload", "laravel"],
     "autoload": {
@@ -10,10 +10,10 @@
         }
     },
     "require": {
+        "composer-plugin-api": "^2.0",
         "php": "^8.0",
         "ext-curl": "*",
-        "ext-openssl": "*",
-        "composer-plugin-api": "^2.0"
+        "ext-openssl": "*"
     },
     "config": {
         "sort-packages": true,
