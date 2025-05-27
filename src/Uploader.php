@@ -2,6 +2,10 @@
 
 namespace Maxicare;
 
+use Composer\Composer;
+use Composer\Plugin\PluginInterface;
+use Composer\IO\IOInterface;
+
 use Exception;
 use InvalidArgumentException;
 
@@ -11,7 +15,7 @@ use InvalidArgumentException;
  * @author Nino Casupanan
  * @description C4C Uploader
  */
-class Uploader
+class Uploader implements PluginInterface
 {
     private array $config;
     private array $requiredEnvVars = [
@@ -29,6 +33,16 @@ class Uploader
         $this->loadConfiguration();
         $this->validateConfiguration();
     }
+
+    public function activate(Composer $composer, IOInterface $io)
+    {
+        // Your plugin logic here
+        $io->write("<info>Uploader plugin activated</info>");
+    }
+
+    // Optionally implement deactivate and uninstall if needed
+    public function deactivate(Composer $composer, IOInterface $io) {}
+    public function uninstall(Composer $composer, IOInterface $io) {}
 
     /**
      * Load environment configuration
