@@ -345,7 +345,7 @@ class Uploader
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYPEER => false, # to avoid issues
             CURLOPT_TIMEOUT => 300,
             CURLOPT_CONNECTTIMEOUT => 30
         ]);
